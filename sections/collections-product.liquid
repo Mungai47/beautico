@@ -1,0 +1,121 @@
+<div  data-section-id="{{ section.id }}" class="container-fluid padding_0">
+  <div class="page-width slider-newproduct-wrap">
+    <div class="section-header">
+      {% if section.settings.title != blank %}
+      <h2 class="tt-title">{{ section.settings.title | escape }}</h2>
+      <div class="tt-subtitle" style="color:{{ section.settings.subtitle_color }};">{{ section.settings.subtitle }}</div>
+      {% endif %}
+    </div>
+    {%- assign collection = collections[section.settings.collection] -%}
+    {%- assign grid_item_width = 'product-li' -%}
+    {%- assign image_size = '270x270' -%}
+    {%- assign product_limit =  10 -%}
+    <div class="new-product-div {{ section.settings.class }} {% if section.settings.type_bg != "rgba(0,0,0,0)" %} has_bg {% endif %} right-to-left hb-animate-element" style="float:left;width:100%;background-color:{{ section.settings.type_bg }};">
+      <div class="container">
+        <div class="row"> 
+          <div id="{{ section.settings.class }}_products_slider" class="slider-newproduct grid grid--view-items owl-carousel owl-theme" data-col="{{ section.settings.product_col }}">
+            {% for product in collection.products limit: product_limit %}
+            <div class="{{ grid_item_width }}">
+              {% include 'product-card-grid', grid_image_width: image_size %}
+            </div>
+            {% else %}
+
+            {% for i in (1..product_limit) %}
+            <div class="{{ grid_item_width }}">
+              <div class="grid-view-item">
+                <a href="#" class="grid-view-item__link">
+                  <div class="grid-view-item__image">
+                    {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                    {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+                  {% include 'wishlist-icon' %}
+                  <div class="h4 grid-view-item__title">{{ 'home_page.onboarding.product_title' | t }}</div>
+                  <div class="grid-view-item__meta">
+                    {% include 'product-price' %}
+                  </div>
+                </a>
+              </div>
+            </div>
+            {% endfor %}
+            {% endfor %}
+          </div>
+          <div class="customNavigation">
+            <div class="navigation_wrap">
+              <a class="fa {{ section.settings.class }}_prev prev">{{ 'general.slider.prev' | t }}<span class="mdi mdi-arrow-left"></span></a>
+              <a class="fa {{ section.settings.class }}_next next">{{ 'general.slider.next' | t }}<span class="mdi mdi-arrow-right"></span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "New collection",
+    "class": "index-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "class",
+        "label": "Add Class",
+        "default": "newproduct"
+      },
+ 	 {
+        "type": "color",
+        "id": "type_bg",
+        "label": "Bg color",
+        "default": "#fff"
+        },
+  {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "New collection"
+      },
+{
+        "type": "textarea",
+        "id": "subtitle",
+        "label": "Subtitle"
+        },
+        {
+        "type": "color",
+        "id": "subtitle_color",
+        "label": "Subtitle color",
+        "default": "#525252"
+        },	
+      {
+        "id": "collection",
+        "type": "collection",
+        "label": "Collection"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_vendor",
+        "label": "Show product vendors",
+        "default": false
+      },{
+          "type": "select",
+          "id": "product_col",
+          "label": "Select product Column",
+          "options": [
+            {
+              "value": "3",
+              "label": "3 Column"
+            },
+            {
+              "value": "4",
+              "label": "4 Column"
+            }
+          ],
+          "default": "4"
+        }
+    ],
+    "presets": [
+      {
+        "name": "New collection",
+        "category": "Collection"
+      }
+    ]
+  }
+{% endschema %}

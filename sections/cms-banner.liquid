@@ -1,0 +1,201 @@
+<div class="cms-banner">
+  <div class="banner-content bottom-to-top hb-animate-element">
+    <div class="ttcmsbanner1 ttbanner">
+      {{ section.settings.banner | img_url: 'master' | img_tag: 'banner' }}
+      <div class="ttcmsbanner1-content col-sm-5">
+        <div class="ttcmsbannerblock">
+          <span class="ttcmsbanner1-title" style="color:{{section.settings.cms_title_color }}">{{ section.settings.cms_title }}</span> 
+          <span class="ttcmsbanner1-subtitle" style="color:{{section.settings.CMS_subtitle_color }}">{{ section.settings.cms_subtitle }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="bannercontent"> 
+      <div class="container">   
+          <div class="ttcmsbannerblock">
+            <div class="col-xs-4 banners banner1">
+              <div class="banner-img">
+                <a href="{{ section.settings.banner_1_url }}">{{ section.settings.banner_1 | img_url: 'master' | img_tag: 'banner_1' }}
+                  <div class="banners-content">
+                    <div class="title"  style="color:{{section.settings.title_color }}">{{ section.settings.title_txt }}</div>
+                    <span class="ttcmsbanner-btn" style="color:{{section.settings.btn_color_1 }}">{{ section.settings.btn_txt1 }}</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="col-xs-4 banners banner2">
+              <div class="banner-img">
+                <a href="{{ section.settings.banner_2_url }}">{{ section.settings.banner_2 | img_url: 'master' | img_tag: 'banner_2' }}
+                  <div class="banners-content">
+                    <div class="title"  style="color:{{section.settings.title2_color }}">{{ section.settings.title2_txt }}</div>
+                    <span class="ttcmsbanner-btn" style="color:{{section.settings.btn_color_2 }}">{{ section.settings.btn_txt2 }}</span>
+                  </div>
+                </a>
+              </div>          
+            </div>
+            <div class="col-xs-4 banners banner3">
+              <div class="banner-img">
+                <a href="{{ section.settings.banner_3_url }}">{{ section.settings.banner_3 | img_url: 'master' | img_tag: 'banner_3' }}
+                  <div class="banners-content">
+                    <div class="title"  style="color:{{section.settings.title3_color }}">{{ section.settings.title3_txt }}</div>
+                    <span class="ttcmsbanner-btn" style="color:{{section.settings.btn_color_3 }}">{{ section.settings.btn_txt3 }}</span>
+                  </div>
+                </a>
+              </div>         
+            </div>
+          </div> 
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "CMS banner",
+	"class": "index-section cms-banner",
+    "settings": [
+	{
+      "type": "image_picker",
+      "id": "banner",
+      "label": "Banner Image"
+    },
+	{
+      "type": "text",
+      "id": "cms_title",
+      "label": "CMS title",
+      "default": "get up to 50% off"
+    },
+	{
+      "type": "color",
+      "id": "cms_title_color",
+      "label": "CMS title Color",
+      "default":"#000"
+    },
+	{
+      "type": "text",
+      "id": "cms_subtitle",
+      "label": "CMS Subtitle",
+      "default": "biggest offers on this season, shop now!"
+    },
+	{
+      "type": "color",
+      "id": "CMS_subtitle_color",
+      "label": "CMS Subtitle Color",
+      "default":"#000"
+    },	
+	{
+      "type": "image_picker",
+      "id": "banner_1",
+      "label": "Banner 1 Image"
+    },
+	{
+      "type": "url",
+      "id": "banner_1_url",
+      "label": "banner1 Url"
+    },
+	{
+      "type": "image_picker",
+      "id": "banner_2",
+      "label": "Banner 2 Image"
+    },
+	{
+      "type": "url",
+      "id": "banner_2_url",
+      "label": "banner2 Url"
+    },
+	{
+      "type": "image_picker",
+      "id": "banner_3",
+      "label": "Banner 3 Image"
+    },
+	{
+      "type": "url",
+      "id": "banner_3_url",
+      "label": "banner3 Url"
+    },
+	{
+      "type": "text",
+      "id": "title_txt",
+      "label": "title Text",
+      "default": "antique"
+    },
+	{
+      "type": "color",
+      "id": "title_color",
+      "label": "title Color",
+      "default":"#000"
+    },
+
+	{
+      "type": "text",
+      "id": "btn_txt1",
+      "label": "button text",
+      "default": "Shop Now"
+    },
+	{
+      "type": "color",
+      "id": "btn_color_1",
+      "label": "Button text Color",
+      "default":"#000"
+    },
+	{
+      "type": "text",
+      "id": "title2_txt",
+      "label": "title2 Text",
+      "default": "skull"
+    },
+	{
+      "type": "color",
+      "id": "title2_color",
+      "label": "title2 Color",
+      "default":"#222"
+    },
+	{
+      "type": "text",
+      "id": "btn_txt2",
+      "label": "button 2",
+      "default": "Shop Now"
+    },
+	{
+      "type": "color",
+      "id": "btn_color_2",
+      "label": "Button text Color",
+      "default":"#000"
+    },   
+	{
+      "type": "text",
+      "id": "title3_txt",
+      "label": "title3 Text",
+      "default": "glem"
+    },
+	{
+      "type": "color",
+      "id": "title3_color",
+      "label": "title3 Color",
+      "default":"#fff"
+    },
+	{
+      "type": "text",
+      "id": "btn_txt3",
+      "label": "button 3",
+      "default": "Shop Now"
+    },
+	{
+      "type": "color",
+      "id": "btn_color_3",
+      "label": "Button text Color",
+      "default":"#000"
+    }
+	],
+ "presets": [
+    {
+     "name": "CMS banner",
+      "category": "TemplateTrip"
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

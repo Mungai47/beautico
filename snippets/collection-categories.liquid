@@ -1,0 +1,27 @@
+{% unless collection_item_width %}
+{% assign collection_item_width = 'small--grid__item medium--one-tenth  wide--one-tenth' %}
+{% endunless %}
+{% assign collection_item_img_size = '600x540' %}
+<div class="grid__item {{collection_item_width}} text-center">
+  <div class="pickgradient-products">
+    {% capture collection_title %}{{ collections[featured].title | escape }}{% endcapture %}
+    <a href="{{ collections[featured].url }}" title="{{ 'collections.general.link_title' | t: title: collection_title }}" class="grid-link">
+      {% if collections[featured].image %}
+      {{ collections[featured].image.src | img_url: collection_item_img_size | img_tag: collection_title }}
+      {% else %}
+      {{ collections[featured].products.first.featured_image | img_url: collection_item_img_size | img_tag: collection_title }}
+      {% endif %}
+      <div class="tt-event-overlay">
+        <p class="collection-count">{{ collection.all_products_count }} <span>{{ 'cart.general.items' | t }}</span></p>
+      </div>
+    </a>
+    <div class="deatil">
+      <a href="{{ collections[featured].url }}" title="{{ 'collections.general.link_title' | t: title: collection_title }}" class="grid-link collection-link">
+        <span class="grid-link__title">{{ collections[featured].title }}</span>
+      </a>
+      <div class="collection-detail">
+        <span>{{ collection.description | strip_html | truncatewords: 8 }}</span>
+      </div>
+    </div>                                  
+  </div>
+</div>

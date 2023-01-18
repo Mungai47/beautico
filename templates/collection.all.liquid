@@ -1,0 +1,86 @@
+<!-- /templates/collection.liquid -->
+{% comment %}
+The contents of the collection.liquid template can be found in /sections/collection-template.liquid
+{% endcomment %}
+{%- assign products_per_page = 50 -%}
+<div class="container">
+  <div class="row">
+    {% if settings.collection_sidebar_use == "left_sidebar" %}
+    <div class="content_wrap">
+      <div class="col-xs-12 col-sm-3 left-sidebar sidebar">
+        {% include 'collection-sidebar' %}
+      </div>
+      <div class="col-xs-12 col-sm-9 collection_wrapper collection_right">
+        {% if settings.collections_masonry %}  
+        {% include 'product-masonry',products_per_page: 50 %}
+        {% else %}
+        {% include 'collection-template',products_per_page: 50 %}
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if settings.collection_sidebar_use == "right_sidebar" %}
+    <div class="content_wrap">
+      <div class="col-xs-12 col-sm-9 collection_wrapper collection_left">
+        {% if settings.collections_masonry %}  
+        {% include 'product-masonry',products_per_page: 50 %}
+        {% else %}
+        {% include 'collection-template',products_per_page: 50 %}
+        {% endif %}
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-3 right-sidebar sidebar">
+      {% include 'collection-sidebar' %}
+    </div>
+    {% endif %}
+
+    {% if settings.collection_sidebar_use == "full_width" %}
+    {% if settings.collections_masonry %}  
+    <div class="full-width col-sm-12">
+    {% include 'product-masonry',products_per_page: 50 %}
+    </div>
+    {% else %}
+    <div class="full-width col-sm-12">
+    {% include 'collection-template',products_per_page: 50 %}
+    </div>
+    {% endif %}
+    {% endif %}
+    
+    {% if settings.collection_sidebar_use == "full_width" %}
+    {% if settings.collection_filter_pos == "left_filter" or settings.collection_filter_pos == "right_filter"%}
+    <div class="off-canvas-wrapper">
+      {% if settings.collection_filter_pos == "left_filter" %}  
+      <div class="off-canvas position-left  shop-has-sidebar is-transition-overlap">
+        {% elsif settings.collection_filter_pos == "right_filter" %}
+        <div class="off-canvas position-right  shop-has-sidebar is-transition-overlap">
+          {% endif %}
+          <div class="collection_sidebar">
+            {% section 'sidebar-category' %}
+
+            {% if current_tags == blank %}
+            {% assign has_refined = false %} 
+            {% else %}
+            {% assign has_refined = true %} 
+            {% endif %}
+            <div class="refined-widgets">
+              <a href="javascript:void(0)" class="clear-all" {% if has_refined == false %}style="display:none"{% endif %}>
+                Clear All
+              </a>
+            </div>
+            <div class="sidebar-block">
+              {% section 'sidebar-color' %}
+              {% section 'sidebar-tag-filters' %}
+              {% section 'sidebar-bestsellers' %}
+              {% section 'sidebar-promoimage' %}
+            </div> 
+
+          </div>
+        </div>    
+        <div class="js-off-canvas-overlay is-overlay-fixed"></div>
+      </div>
+      {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</div>

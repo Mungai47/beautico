@@ -1,0 +1,164 @@
+<div data-section-id="{{ section.id }}"  data-section-type="tt-collection-slider-wrap" class="tt-collection-slider-wrap"  {% if section.settings.bg_image != blank  %}style="background-image: url({{section.settings.bg_image | img_url : 'master'}})"{% endif %}>
+  <div class="tt-collection-slider-wrap-inner bottom-to-top hb-animate-element">
+  <div class="container">
+    <div class="collection_slider_wrap" style="background:{{section.settings.bg_color}}">
+      {% if section.settings.title != blank  %}
+      <div class="section-header section-header--small">
+        {% if section.settings.title != blank %}
+        <h2 class="tt-title" style="color:{{section.settings.title_color }}">{{ section.settings.title }}</h2>  
+        {% endif %}
+      </div>
+      {% endif %}
+      <div class="collection_cms_slider_wrap">
+        {% if section.blocks.size > 0 %}  
+        <div class="row">
+          <div class="collection_cms_slider owl-carousel">
+            {% for block in section.blocks %}  
+            {%- assign collection = collections[block.settings.collection_cat_id] -%}   
+            <div class="collection_cat_item col-xs-12"> 
+              <div class="cat_content">
+                  <a href="{{ collection.url }}">
+                    <div class="collection_img">
+                      <img src="{{ block.settings.image_1 | img_url: "master"  }}" alt="collection-img" />   
+                    </div>
+                  </a>
+                <div class="tt-collection-content">
+                  <div class="collection_title"><a href="{{ collection.url }}">{{ collection.title }}</a></div>
+                  <p class="desc">{{ collection.all_products_count }} <span>{{ 'cart.general.items' | t }}</span></p>  
+                </div>
+
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+        <div class="customNavigation">
+          <div class="navigation_wrap">
+            <a class="fa blog_prev prev">{{ 'general.slider.prev' | t }}<span class="mdi mdi-arrow-left"></span></a>
+            <a class="fa blog_next next">{{ 'general.slider.next' | t }}<span class="mdi mdi-arrow-right"></span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+{% schema %}
+{
+"name": "Collection CMS Slider",
+ "max_blocks":10,
+"settings": [
+          {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Bg Color",
+          "default":"#fff"
+          },
+		{
+            "type": "image_picker",
+            "id": "bg_image",
+            "label": "Background Image"
+          },
+          {
+          "type": "text",
+          "id": "title",
+          "label": "Heading"
+          },
+          {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title Color",
+          "default":"#000"
+          }          
+          ],
+          "blocks": [
+          {
+          "type": "text_collection",
+          "name": "collection cms",
+          "settings": [
+          {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Image",
+          "info": "Size: 140x140"
+          },
+		  {
+          "type": "collection",
+          "id": "collection_cat_id",
+          "label": "Select collection"
+          }          
+          ]
+          }
+          ],
+ "presets": [
+    {
+     "name": "Collection CMS Slider",
+      "category": "TemplateTrip",
+      "blocks": [
+        {
+          "type": "text_collection"
+        }     
+ 		
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+$(document).ready(function() {
+ $('body:not(.rtl) .collection_cms_slider').owlCarousel({             
+              nav : true,
+              dots : false,
+			loop: true,
+           responsive: {
+            100: {
+              items: 1
+            },
+            480: {
+              items: 2
+            },
+            768: {
+              items: 3
+            },
+            1200: {
+              items: 3
+            }
+          }
+          });
+        $('body.rtl .collection_cms_slider').owlCarousel({
+              nav : true,
+				rtl:true,
+			  loop: true,
+              dots : false,
+           responsive: {
+            100: {
+              items: 1
+            },
+            480: {
+              items: 2
+            },
+            768: {
+              items: 3
+            },
+            1200: {
+              items: 3
+            }
+          }
+          });
+
+    if(jQuery(".collection_cms_slider .owl-nav").hasClass('disabled')){
+     jQuery(".collection_cms_slider_wrap .customNavigation").hide();
+    }else{
+     jQuery(".collection_cms_slider_wrap .customNavigation").show();
+    }
+       jQuery(".collection_cms_slider_wrap .customNavigation .next").click(function(){
+        jQuery('.collection_cms_slider_wrap .collection_cms_slider').trigger('next.owl');
+      });
+      jQuery(".collection_cms_slider_wrap .customNavigation .prev").click(function(){
+        jQuery('.collection_cms_slider_wrap .collection_cms_slider').trigger('prev.owl');
+      }); 
+});
+{% endjavascript %}
+

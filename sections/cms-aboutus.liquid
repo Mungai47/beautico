@@ -1,0 +1,144 @@
+<div class="ttcmsaboutus bottom-to-top hb-animate-element ">
+  <div class="container">
+  <div class="row">
+    <div class="ttaboutusbanner col-sm-7 col-xs-7">
+      {% if section.settings.title != blank  %}
+        <h2 class="tt-title" style="color:{{section.settings.title_color }}">{{ section.settings.title }}</h2>
+      {% endif %}
+      <div class="ttcmsaboutus-bg">
+        <div class="image1 ttimg">
+          <div class="ttbanner-img"><a href="{{ section.settings.banner_1_url }}">{{ section.settings.banner_1 | img_url: 'master' | img_tag: 'banner_1' }}</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="ttaboutusdesc col-sm-5 col-xs-5">
+      <div class="ttcmsaboutusblock">
+        <div class="ttcmsaboutus-content">
+          <div class="ttaboutus-icon">{{ section.settings.about_icon | img_url: '70x70' | img_tag: 'image_1'}}</div>
+          <div class="ttcmsaboutus-title">{{section.settings.about_title}}</div>
+          <div class="ttcmsaboutus-desc">{{section.settings.description}}</div>
+          <div class="ttcmsaboutus-btn"><a href="{{ section.settings.btn_link }}">{{ section.settings.btn_txt }}</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+<style>
+  .ttcmsaboutus .ttcmsaboutus-content .ttcmsaboutus-title {
+    color: {{ section.settings.service_title_color }};
+  }
+  .ttcmsaboutus .ttcmsaboutus-content .ttcmsaboutus-desc {
+    color: {{ section.settings.description_color }};
+  }
+  .ttcmsaboutus .ttcmsaboutus-content .ttcmsaboutus-btn > a{
+    border: 1px solid {{section.settings.btn_bg_color }};
+    color:{{section.settings.btn_txt_color }};
+  }
+  .ttcmsaboutus .ttcmsaboutus-content .ttcmsaboutus-btn > a:hover{
+    background:{{section.settings.btn_hover_bg_color }};
+    color:{{section.settings.btn_hover_txt_color }};
+  }
+</style>
+{% schema %}
+{
+  "name": "CMS aboutus",
+  "class": "index-section cms-aboutus",
+  "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading"
+      },
+      {
+        "type": "color",
+        "id": "title_color",
+        "label": "Title Color",
+        "default":"#000"
+      }, 
+	  {	
+        "type": "image_picker",
+        "id": "banner_1",
+        "label": "Banner 1 Image"
+      },
+      {
+        "type": "url",
+        "id": "banner_1_url",
+        "label": "banner1 Url"
+      },      
+      {
+        "type": "color",
+        "id": "service_title_color",
+        "label": "Title Color",
+        "default":"#000"
+      },      
+      {
+        "type": "color",
+        "id": "description_color",
+        "label": "Description Color",
+        "default":"#000"
+      }, 
+{
+      "type": "color",
+      "id": "btn_txt_color",
+      "label": "Banner1 Button text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg_color",
+      "label": "Banner1 Button bg Color",
+      "default": "#c40529"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_txt_color",
+      "label": "Banner1 Button Hover text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_bg_color",
+      "label": "Banner1 Button Hover bg Color",
+      "default": "#000000"
+      },
+      {
+        "type": "image_picker",
+        "id": "about_icon",
+        "label": "About Icon"
+      },
+      {
+        "type": "textarea",
+        "id": "about_title",
+        "label": "About Title"
+      },
+      {
+        "type": "textarea",
+        "id": "description",
+        "label": "Description"
+      },
+{
+      "type": "text",
+      "id": "btn_txt",
+      "label": "Button text"
+    },
+    {
+      "type": "text",
+      "id": "btn_link",
+      "label": "Button Link"
+    }    
+  ],
+	 "presets": [
+    {
+     "name": "CMS Aboutus",
+      "category": "TemplateTrip"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

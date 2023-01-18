@@ -1,0 +1,455 @@
+<div class="page-width blog_latest_new_home {% if section.settings.bg_color != "rgba(0,0,0,0)" %} has_bg {% endif %}" data-section-id="{{ section.id }}" data-section-type="blog_latest_new_home-section" style="background-color:{{ section.settings.bg_color }};">
+  <div class="container bottom-to-top hb-animate-element">
+    {% if section.settings.title != blank %}
+    <header class="section-header">
+      <h2 class="tt-title">{{ section.settings.title | escape }}</h2>
+      {% if section.settings.subtitle != blank %}
+      <div class="tt-subtitle" style="color:{{ section.settings.subtitle_color }};">{{ section.settings.subtitle }}</div>
+      {% endif %}
+    </header>
+    {%- assign blog = blogs[section.settings.blog] -%}
+   {% unless blog.articles_count == 0 or blog.empty? %}
+    <div class="grid grid--blog {{ section.settings.blog_design }}">
+      <div class="row">
+        <div id="blog_slider" class="grid-blog-slider owl-carousel owl-theme {{ section.settings.product_col }}">  
+          {% for article in blog.articles limit: section.settings.post_limit %}
+          <div class="grid__item medium-up--one-third">
+            <div class="article__grid__inner tt-blog-content">
+              {% if section.settings.blog_design == 'design_3' %}
+              {%- assign mod_2 = cnt | modulo:2 -%}       
+              {%  if mod_2 == 1  %}
+              <div class="blog-content-wrap col-xs-12">
+                <div class="article__grid-meta{% if article.image %} article__grid-meta--has-image{% endif %}">
+
+                  {% if section.settings.blog_show_date %}
+                  <span class="article__date left" style="color:{{ section.settings.blog_design_4_datecolor }};">
+                    <i class="mdi mdi-calendar" aria-hidden="true"></i>
+                    {{ article.published_at | time_tag: format: 'month_day_year' }}
+                  </span>
+                  {% endif %}
+
+
+                  <h4 class="article__title">
+                    <a href="{{ article.url }}">{{ article.title | strip_html | truncate: 28 }}</a>
+                  </h4>
+
+                  <div class="rte article__grid-excerpt">
+                    {% if article.excerpt.size > 0 %}
+                    {{ article.excerpt }}
+                    {% else %}
+                    {{ article.content | strip_html | truncate: 62 }}
+                    {% endif %}
+                  </div>
+                  <div class="list--inline article__meta-buttons">
+                    <a href="{{ article.url }}" class="read-more">{{ 'blogs.article.read_more' | t }}</a>
+                  </div>
+                  {% if section.settings.blog_design == 'design_1' or section.settings.blog_design == 'design_2' or section.settings.blog_design == 'design_3' %}
+                  {% if blog.comments_enabled? %}
+                 {% assign number_of_comments = article.comments_count %}
+                  <span class="article__comment" style="color:{{ section.settings.blog_design_commentcolor }};">                    
+                    <a href="{{ article.url }}#comments">
+                      <i class="mdi mdi-eye" aria-hidden="true"></i>{{  number_of_comments }}
+                    </a>
+                  </span>
+                  {% endif %}
+                  {% endif %}
+                </div>
+              </div>
+              {% if article.image %}
+              <div class="ttblog_image_holder blog_image_holder">
+                <a href="{{ article.url }}" class="article__grid-image">
+                  {{ article | img_url: '380x240', crop: 'center' | img_tag: article.title }}
+                </a>
+                <span class="bloglinks">
+                  <a class="icon zoom" data-lightbox="example-set" href="{{ article | img_url: '1024x1024', crop: 'center' }}" title="Click to view Full Image">
+                    <i class="mdi mdi-magnify"></i>
+                  </a> 
+                </span>
+              </div>
+              {% else %}
+              <img src="{{ 'no-image.gif' | img_url: '380x240' }}"/>
+              {% endif %} 
+              
+              {% else %}
+              {% if article.image %}
+              <div class="ttblog_image_holder blog_image_holder">
+                <a href="{{ article.url }}" class="article__grid-image">
+                  {{ article | img_url: '380x240', crop: 'center' | img_tag: article.title }}
+                </a>
+                <span class="bloglinks">
+                  <a class="icon zoom" data-lightbox="example-set" href="{{ article | img_url: '1024x1024', crop: 'center' }}" title="Click to view Full Image">
+                    <i class="mdi mdi-magnify"></i>
+                  </a> 
+                </span>
+              </div>
+              {% else %}
+              <img src="{{ 'no-image.gif' | img_url: '380x240' }}"/>
+              {% endif %} 	
+              <div class="blog-content-wrap col-xs-12">
+                <div class="article__grid-meta{% if article.image %} article__grid-meta--has-image{% endif %}">
+
+                  {% if section.settings.blog_show_date %}
+                  <span class="article__date left" style="color:{{ section.settings.blog_design_4_datecolor }};">
+                    <i class="mdi mdi-calendar" aria-hidden="true"></i>
+                    {{ article.published_at | time_tag: format: 'month_day_year' }}
+                  </span>
+                  {% endif %}
+
+                  <h4 class="article__title">
+                    <a href="{{ article.url }}">{{ article.title | strip_html | truncate: 28}}</a>
+                  </h4>
+
+                  <div class="rte article__grid-excerpt">
+                    {% if article.excerpt.size > 0 %}
+                    {{ article.excerpt }}
+                    {% else %}
+                    {{ article.content | strip_html | truncate: 62 }}
+                    {% endif %}
+                  </div>
+                  <div class="list--inline article__meta-buttons">
+                    <a href="{{ article.url }}" class="read-more">{{ 'blogs.article.read_more' | t }}</a>
+                  </div>
+                  
+                  {% if section.settings.blog_design == 'design_1' or section.settings.blog_design == 'design_2' or section.settings.blog_design == 'design_3' %}
+                  {% if blog.comments_enabled? %}
+                  {% assign number_of_comments = article.comments_count %}
+                  <span class="article__comment" style="color:{{ section.settings.blog_design_commentcolor }};">                    
+                    <a href="{{ article.url }}#comments">
+                      <i class="mdi mdi-eye" aria-hidden="true"></i>{{  number_of_comments }}
+                    </a>
+                  </span>
+                  {% endif %}
+                  {% endif %}
+                </div>
+              </div>
+              {% endif %} 
+              
+               {% assign cnt = cnt | plus: 1 %}
+              {% else %}
+              {% if article.image %}              
+              <div class="ttblog_image_holder blog_image_holder">
+                <a href="{{ article.url }}" class="article__grid-image">
+                  {{ article | img_url: '380x240' , crop: 'center' | img_tag: article.title }}
+                </a>
+                <span class="bloglinks">
+                  <a class="icon zoom" data-lightbox="example-set" href="{{ article | img_url: '1024x1024' }}" title="Click to view Full Image">
+                    <i class="mdi mdi-magnify"></i>
+                  </a> 
+                </span>
+              </div>
+              {% else %}
+              <img src="{{ 'no-image.gif' | img_url: '380x240' }}"/>
+              {% endif %}              
+              <div class="blog-content-wrap col-xs-12">
+                <div class="article__grid-meta{% if article.image %} article__grid-meta--has-image{% endif %}">
+                  <h4 class="article__title">
+                    <a href="{{ article.url }}">{{ article.title | strip_html | truncate: 28 }}</a>
+                  </h4>
+                  {% if section.settings.blog_show_date %}
+                  <span class="article__date left" style="color:{{ section.settings.blog_design_4_datecolor }};">
+                    <i class="mdi mdi-calendar" aria-hidden="true"></i>
+                    <span class="date">{{ article.published_at | date: '%d' }}</span>
+                    <span class="month">{{ article.published_at | date: '%b' }}</span>
+                  </span>
+                  {% endif %}
+                  <div class="rte article__grid-excerpt">
+                    {% if article.excerpt.size > 0 %}
+                    {{ article.excerpt }}
+                    {% else %}
+                    {{ article.content | strip_html | truncate: 65 }}
+                    {% endif %}
+                  </div>
+                  <div class="list--inline article__meta-buttons">
+                    <a href="{{ article.url }}" class="read-more">{{ 'blogs.article.read_more' | t }}</a>
+                  </div>
+                  {% if section.settings.blog_design == 'design_1' or section.settings.blog_design == 'design_2' or section.settings.blog_design == 'design_3' %}
+                  {% if blog.comments_enabled? %}
+                  {% assign number_of_comments = article.comments_count %}
+                  <span class="article__comment" style="color:{{ section.settings.blog_design_commentcolor }};">                    
+                    <a href="{{ article.url }}#comments">
+                      <i class="mdi mdi-eye" aria-hidden="true"></i>{{  number_of_comments }}
+                    </a>
+                  </span>
+                  {% endif %}
+                  {% endif %}
+                </div>
+              </div>                                    
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="customNavigation">
+        <div class="navigation_wrap">
+          <a class="fa blog_prev prev">{{ 'general.slider.prev' | t }}<span class="mdi mdi-arrow-left"></span></a>
+          <a class="fa blog_next next">{{ 'general.slider.next' | t }}<span class="mdi mdi-arrow-right"></span></a>
+        </div>
+      </div>
+    </div>
+      {% else %}
+      <div class="grid grid--uniform grid--blog">
+        {% for i in (1..section.settings.post_limit) %}
+        <div class="grid__item medium-up--one-third">
+          <div class="article__grid-meta">
+            <h4 class="article__title">
+              <a href="#">{{ 'homepage.onboarding.blog_title' | t }}</a>
+            </h4>
+            <div class="rte article__grid-excerpt">
+              {{ 'homepage.onboarding.blog_excerpt' | t }}
+            </div>
+            <ul class="list--inline article__meta-buttons">
+              <li>
+                <a href="{{ article.url }}" class="read-more">
+                  {{ 'blogs.article.read_more' | t }}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endunless %}      
+      {% endif %}
+      {% if section.settings.show_view_all %}
+      <div class="text-center">
+        <a href="{{ blog.url }}" class="btn">
+          {{ 'blogs.article.view_all' | t }}
+        </a>
+      </div>
+      {% endif %}
+  </div>
+</div>
+<style>
+  #blog_slider .tt-blog-content .blog_image_holder .bloglinks a {
+    	background-color:{{ section.settings.blog_btn_bg }};
+    	color:{{ section.settings.blog_btn_text }};
+  }
+  #blog_slider .tt-blog-content .blog_image_holder .bloglinks a:hover{
+    	background-color:{{ section.settings.blog_btn_hover_bg }};
+    	color:{{ section.settings.blog_hover_btn_text }};
+    	border-color:{{ section.settings.blog_btn_hover_bg }};
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Blog posts",
+    "class": "index-section",
+    "settings": [
+		{
+        "type": "color",
+        "id": "bg_color",
+        "label": "background color",
+        "default": "#f5f5f5"
+        },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Blog posts"
+      },
+		{
+        "type": "textarea",
+        "id": "subtitle",
+        "label": "Subtitle"
+        },
+        {
+        "type": "color",
+        "id": "subtitle_color",
+        "label": "Subtitle color",
+        "default": "#525252"
+        },
+      {
+        "id": "blog",
+        "type": "blog",
+        "label": "Blog"
+      },
+		 {
+        "type": "select",
+        "id": "blog_design",
+        "label": "Select Blog Design",
+        "default": "design_1",
+        "options": [
+          {
+            "value": "design_1",
+            "label": "Design 1"
+          },
+          {
+            "value": "design_2",
+            "label": "Design 2"
+          },
+          {
+            "value": "design_3",
+            "label": "Design 3"
+          }
+        ]
+      },
+{
+          "type": "select",
+          "id": "product_col",
+          "label": "Select blog Column",
+          "options": [
+            {
+              "value": "2",
+              "label": "2 Column"
+            },
+            {
+              "value": "3",
+              "label": "3 Column"
+            }			
+          ],
+          "default": "3"
+        },
+      {
+        "type": "select",
+        "id": "post_limit",
+        "label": "Posts",
+        "default": "3",
+        "options": [
+          {
+            "value": "3",
+            "label": "3"
+          },
+          {
+            "value": "6",
+            "label": "6"
+          },
+          {
+            "value": "9",
+            "label": "9"
+          },
+          {
+            "value": "12",
+            "label": "12"
+          }
+        ]
+      },
+		{
+        "type": "color",
+        "id": "blog_design_4_datecolor",
+        "label": "Blog date color",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "blog_design_4_authorcolor",
+        "label": "Blog author  color",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "blog_design_commentcolor",
+        "label": "Blog comment color",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "blog_btn_bg",
+        "label": "Blog Button",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "blog_btn_text",
+        "label": "Blog Button Text",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "blog_btn_hover_bg",
+        "label": "Blog Hover Button",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "blog_hover_btn_text",
+        "label": "Blog Hover Button Text",
+        "default": "#000"
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_author",
+        "label": "Show author",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_date",
+        "label": "Show date",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_view_all",
+        "label": "Show 'View all' button",
+        "default": false
+      }
+	
+    ],
+    "presets": [
+      {
+        "name": "Blog posts",
+        "category": "Blog",
+        "settings": {
+          "blog": "News",
+          "post_limit": "3"
+        }
+      }
+    ]
+  }
+{% endschema %}
+<script> 
+  var blogowlrtl = $("body.rtl .grid-blog-slider");
+        $("body.rtl .grid-blog-slider").owlCarousel({
+        items : {{ section.settings.product_col }} , //10 items above 1000px browser width
+        loop: false,
+        nav: true,  
+          rtl: true, 
+		dots: false,
+        responsive: {
+          100: {
+            items: 1
+          },
+          544: {
+            items: 2
+          },
+          992: {
+            items:{{ section.settings.product_col }}
+          }
+        }
+         });
+
+   var blogowl = $("body:not(.rtl) .grid-blog-slider");
+     $("body:not(.rtl) .grid-blog-slider").owlCarousel({
+        items : {{ section.settings.product_col }} , //10 items above 1000px browser width
+        loop: false,
+        nav: true,  
+        rtl: false,  
+		dots: false,
+        responsive: {
+          100: {
+            items: 1
+          },
+          544: {
+            items: 2
+          },
+          992: {
+            items: {{ section.settings.product_col }}
+          }
+        }
+         });
+      $('.grid--blog').each(function () { 
+              if($(this).find('.owl-nav').hasClass('disabled')){
+                $(this).find('.customNavigation').hide();
+              }else{
+                $(this).find('.customNavigation').show();
+              }
+            });
+    $(".blog_next").click(function(){
+    	 $(".grid-blog-slider").trigger('next.owl');
+    });
+    $(".blog_prev").click(function(){
+    	 $(".grid-blog-slider").trigger('prev.owl');
+    });
+</script>

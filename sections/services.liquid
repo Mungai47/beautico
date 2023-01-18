@@ -1,0 +1,178 @@
+{% if section.blocks.size > 0 %}  
+<div class="ttservices">
+  <div class="block_content bottom-to-top hb-animate-element">
+    <div class="service_block container">
+      <div class="ttserviceblock owl-carousel">
+      {% for block in section.blocks %} 
+      <div class="ttservice-wrap col-sm-4 col-xs-4">
+        <div class="ttcontent">
+          <div class="service">
+            <div class="service-img col-sm-3">
+             {{block.settings.service_icon | img_url: "master" | img_tag: 'service_icon' }}
+            </div>
+            <div class="content col-sm-9">
+              <div class="service-title">{{  block.settings.title }}</div>
+              <div class="service-desc">{{  block.settings.subtitle }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+<style>
+ .ttservice-wrap .service-title{
+    color: {{ section.settings.title_color }};
+  }
+  .ttservice-wrap .service-desc{
+    color: {{ section.settings.subtitle_descolor }};
+  }
+  .ttservices .ttservice-wrap:hover .ttcontent .content .service-title {
+    color: {{ section.settings.title_hover_color }};
+  }
+</style>
+{% schema %}
+  {
+    "name": "Services",
+	"max_blocks":3,
+	"class":"Services",
+    "settings": [
+ 		{
+        "type": "header",
+        "content": "Services"
+ 		 },
+		 {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title Color",
+          "default":"#000"
+          },
+		  {
+          "type": "color",
+          "id": "title_hover_color",
+          "label": "Title Hover Color",
+          "default":"#000"
+          },
+          {
+          "type": "color",
+          "id": "subtitle_descolor",
+          "label": "Subtitle Color",
+          "default":"#000"
+          }
+		],
+          "blocks": [
+          {
+          "type": "s_text",
+          "name": "services",
+          "settings": [
+          {
+          "type": "image_picker",
+          "id": "service_icon",
+          "label": "Service Icon",
+          "info": "Size: 62x52"
+          },
+          {
+          "type": "textarea",
+          "id": "title",
+          "label": "Title"
+          },
+		  {
+          "type": "textarea",
+          "id": "subtitle",
+          "label": "Sub Title"
+          }
+          
+          ]
+          }
+          ],
+ "presets": [
+    {
+     "name": "Services",
+      "category": "Service",
+      "blocks": [
+        {
+          	"type": "s_text",
+			"settings": {
+                "title": "Free Shipping",
+                "subtitle": "Deliver to door"
+            }
+        	},
+            {
+            "type": "s_text",
+            "settings": {
+                "title": "24x7 Support",
+                "subtitle": "in safe hands"
+            }
+            },
+            {
+            "type": "s_text",
+            "settings": {
+                "title": "Big Saving",
+                "subtitle": "at lowest price"
+            }
+            },
+            {
+            "type": "s_text",
+            "settings": {
+                "title": "Money Back",
+                "subtitle": "Easy to return"
+            }
+            },
+            {
+            "type": "s_text",
+            "settings": {
+                "title": "online store",
+                "subtitle": "a huge branding"
+            }
+            },
+            {
+            "type": "s_text",
+            "settings": {
+                "title": "Award Winner",
+                "subtitle": "for best services"
+            }
+            }       
+ 	
+      ]
+    }
+  ]
+  }
+{% endschema %}
+
+<script>
+ $(document).ready(function() {	 
+    var service = $(".service_block .ttserviceblock");
+    service.owlCarousel({
+        items : 3 , //10 items above 1000px browser width
+		dots: false,
+        loop: true,
+		nav: true,
+      	autoplay:true,
+		responsive: {
+          100: {
+            items: 1
+          },
+          481: {
+            items: 2
+          },
+          992: {
+            items: 3
+          },
+        	1200: {
+            items: 3
+          },
+        	1300: {
+            items: 3
+          }
+		}
+    });       
+});
+</script>
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

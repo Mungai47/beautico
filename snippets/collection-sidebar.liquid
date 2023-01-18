@@ -1,0 +1,26 @@
+<!-- /snippets/collection-sidebar.liquid -->
+<div class="sidebar__inner">
+  <div class="collection_sidebar">
+    <div class="sidebar-block">
+      {% section 'sidebar-category' %}
+      {% if current_tags == blank %}
+      {% assign has_refined = false %} 
+      {% else %}
+      {% assign has_refined = true %} 
+      {% endif %}
+      <div class="refined-widgets">
+        <a href="javascript:void(0)" class="clear-all" {% if has_refined == false %}style="display:none"{% endif %}>
+          {{ 'products.product.clear_all' | t }}
+          <i class="mdi mdi-close-circle"></i>
+        </a>
+      </div>
+      {% section 'sidebar-color' %}
+      {% section 'sidebar-tag-filters' %}
+    </div>
+    {% section 'sidebar-bestsellers' %}  
+    {% section 'sidebar-promoimage' %}
+    {% comment %}
+    {% section 'sidebar-blog-listing' %}
+    {% endcomment %}
+  </div>
+</div>

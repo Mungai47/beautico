@@ -1,0 +1,87 @@
+<!-- templates/list-collections -->
+{% comment %}
+
+  This page represents the /collections and /products pages.
+  It is an optional, but highly recommended, template for your theme.
+
+  More info:
+    - http://docs.shopify.com/manual/configuration/store-customization/taking-control-of-collections-listing
+
+{% endcomment %}
+
+{% comment %}
+  Loop through each collection, except 'frontpage'
+{% endcomment %}
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 collection_wrapper">
+      <div class="collection_template">
+        <div class="grid">
+          {% if settings.Collection_type =='show_category' %}
+          <div class="grid-uniform list-collection-products {{ settings.Collection_type }}">  
+            {% if settings.use_custom_list_collection %}
+            {% for link in linklists[settings.list-collections].links %}
+            {% assign collection = link.object %}
+            {% unless collection.handle == 'frontpage' %}
+            {% if settings.collection_grid_column == '3' %}
+            {% assign collection_item_width = 'grid__item col-sm-4 col-xs-6' %}
+            {% elsif settings.collection_grid_column == '2' %}
+            {% assign collection_item_width = 'grid__item col-sm-6 col-xs-6' %}
+            {%  elsif settings.collection_grid_column == '4' %}
+            {% assign collection_item_width = 'grid__item col-sm-3 col-xs-6' %}
+            {% endif %}
+            {% assign featured = collection.handle %}
+            {% include 'collection-categories' %}
+            {% endunless %}
+            {% endfor %}  
+            {% else %}
+            {% for collection in collections %}
+            {% unless collection.handle == 'frontpage' %}
+            {% if settings.collection_grid_column == '3' %}
+            {% assign collection_item_width = 'grid__item wide--one-third post-large--one-third large--one-third small--grid__item col-sm-4 col-xs-6' %}
+            {% elsif settings.collection_grid_column == '2' %}
+            {% assign collection_item_width = 'grid__item wide--one-half post-large--one-half large--one-half col-sm-6 col-xs-6' %}
+            {%  elsif settings.collection_grid_column == '4' %}
+            {% assign collection_item_width = 'grid__item wide--one-quarter post-large--one-quarter large--one-quarter col-sm-3 col-xs-6' %}
+            {% endif %}
+
+            {% assign featured = collection.handle %}
+            {% include 'collection-categories' %}
+            {% endunless %}
+            {% endfor %}  
+            {% endif %}  
+          </div>
+          {% else %}
+          <div class="list-collection-products {{ settings.Collection_type }} owl-carousel">  
+            {% for collection in collections %}
+
+            {% unless collection.handle == 'frontpage' %}
+
+            {% include 'collection-lists' %}
+
+            {% unless forloop.last %}<hr>{% endunless %}
+
+            {% endunless %}
+
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+<style>
+.list-collection-products.show_products.owl-carousel {
+    display: block;
+}
+</style>
+  {{ 'masonry.js' | asset_url | script_tag }}
+<script>
+  $(window).load(function() {
+    var $container = $(".show_category.list-collection-products");
+    $container.imagesLoaded( function() {
+      $container.masonry({ itemSelector : ".grid__item" , columnWidth: ".grid__item",percentPosition: true
+      }); 
+    });
+  });
+</script>

@@ -1,0 +1,172 @@
+<div class="page-width brands_slider_wrap" data-section-id="{{ section.id }}" style="background:{{section.settings.bg_color }}">
+  <div class="container bottom-to-top hb-animate-element">
+  {% if section.settings.title != blank %}
+    <div class="section-header text-center">
+      <h2 class="tt-title">{{ section.settings.title | escape }}</h2>
+    </div>
+  {% endif %}
+    <div class="brand-bar{% if section.settings.title_enable %} brand-bar--large{% endif %}">
+    <div id="{{ section.settings.addclass }}_list_slider" class="tt-brand_slider owl-carousel">
+  {% if section.blocks.size > 0 %}
+      {% for block in section.blocks %}
+        <div class="brand-bar__item{% if section.settings.title_enable %} brand-bar__item--large{% endif %}" {{ block.shopify_attributes }}>
+          {% if block.settings.link != blank %}
+            <a href="{{ block.settings.link }}" class="brand-bar__link">
+          {% endif %}
+          {% if block.settings.image != blank %}
+            {{ block.settings.image | img_url: '160x160' | img_tag: block.settings.image.alt, 'brand-bar__image' }}
+          {% else %}
+            {{ 'logo' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+          {% if block.settings.link != blank %}
+            </a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    </div>   
+    
+  {% endif %}   
+ 
+  {% if section.blocks.size == 0 %}
+    {% include 'no-blocks' %}
+  {% endif %}
+</div>
+</div>
+
+{% schema %}
+  {
+    "name": "Brand list",
+    "class": "index-section brand-logo",
+    "max_blocks": 20,
+    "settings": [
+     {
+        "type": "text",
+        "id": "addclass",
+        "label": "Add Class",
+        "default": "brands"
+      },
+	  {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Brand list"
+      },
+	{
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background color",
+        "default": "#f1f1f1"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "brand_image",
+        "name": "Brand",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link",
+            "info": "Optional"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Brand list",
+        "category": "Image",
+        "blocks": [
+          {
+            "type": "brand_image"
+          },
+          {
+            "type": "brand_image"
+          },
+          {
+            "type": "brand_image"
+          },
+			{
+            "type": "brand_image"
+          },
+			{
+            "type": "brand_image"
+          },
+          {
+            "type": "brand_image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+<script>
+ $(document).ready(function() {	
+    var brandsowl = $("body:not(.rtl) #brands_list_slider");
+	 var  brandsowlrtl = $("body.rtl #brands_list_slider");
+    brandsowl.owlCarousel({
+        items : 5 , //10 items above 1000px browser width
+		dots: false,
+        loop: true,
+      	autoplay:true,
+        autoplayHoverPause:true,
+		nav: true,
+		responsive: {
+          320: {
+            items: 2
+          },
+          544: {
+            items: 3
+          },
+          992: {
+            items: 4
+          },
+        	1200: {
+            items: 5
+          }
+		}
+    });
+brandsowlrtl.owlCarousel({
+        items : 5 , //10 items above 1000px browser width
+		dots: false,
+        loop: true,
+		nav: true,
+  		autoplay:true,
+        autoplayHoverPause:true,
+		rtl: true,
+		responsive: {
+          320: {
+            items: 2
+          },
+          544: {
+            items: 3
+          },
+          992: {
+            items: 4
+          },
+        	1200: {
+            items: 5
+          }
+	}
+    });
+    $(".brands_next").click(function(){
+    	brandsowl.trigger('owl.next');
+    });
+    $(".brands_prev").click(function(){
+    	brandsowl.trigger('owl.prev');
+    });
+    $(".brands_next").click(function(){
+    	brandsowlrtl.trigger('owl.next');
+    });
+    $(".brands_prev").click(function(){
+    	brandsowlrtl.trigger('owl.prev');
+    });
+   
+});
+</script>

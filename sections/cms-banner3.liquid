@@ -1,0 +1,167 @@
+<div class="ttcmsbanner3 bottom-to-top hb-animate-element">
+  <div class="banner-content">
+    <div class="ttcmsbanner ttbanner col-sm-6">
+      <div class="banner-img">
+        <a href="{{ section.settings.banner_url }}">{{ section.settings.banner | img_url: 'master' | img_tag: 'banner_1' }} </a>
+      </div>
+    </div>
+    <div class="bannercontent ttbanner col-sm-6"> 
+      <div class="ttbanner1 ttbanner col-sm-12">
+        <div class="banner-img">
+          <a href="{{ section.settings.banner_1_url }}">{{ section.settings.banner_1 | img_url: 'master' | img_tag: 'banner_1' }}             
+          </a>
+        </div>
+      </div>
+      <div class="ttbanner2 ttbanner col-sm-12 ">
+        <div class="col-xs-6 banners banner1">
+          <div class="banner-img">
+            <a href="{{ section.settings.banner_2_url }}">{{ section.settings.banner_2 | img_url: 'master' | img_tag: 'banner_2' }}</a>
+            <div class="banners-content">
+              <div class="title" style="color:{{section.settings.title_color }}">{{ section.settings.title_txt }}</div>
+              <div class="subtitle" style="color:{{section.settings.subtitle_color }}">{{ section.settings.subtitle_txt }}</div>
+              <div class="ttcmsbanner-btn">
+                <a href="{{section.settings.btn_url }}">{{section.settings.btn_txt}}</a>
+              </div>
+            </div>
+          </div>          
+        </div>
+        <div class="col-xs-6 banners banner2">
+          <div class="banner-img">
+            <a href="{{ section.settings.banner_3_url }}">{{ section.settings.banner_3 | img_url: 'master' | img_tag: 'banner_3' }}</a>
+          </div>         
+        </div>
+      </div> 
+    </div>
+  </div>
+</div>
+  <style>
+  .ttcmsbanner3 .banner-content .ttbanner .banners.banner1 .banners-content .ttcmsbanner-btn a{
+    background:{{section.settings.btn_bg_color }};
+    color:{{section.settings.btn_color }};
+  }
+  .ttcmsbanner3 .banner-content .ttbanner .banners.banner1 .banners-content .ttcmsbanner-btn a:hover{
+    background:{{section.settings.btn_hover_bg_color }};
+    color:{{section.settings.btn_hover_color }};
+  }
+</style>
+{% schema %}
+  {
+    "name": "CMS banner3",
+	"class": "index-section cms-banner3",
+    "settings": [
+	{
+      "type": "image_picker",
+      "id": "banner",
+      "label": "Banner Image"
+    },
+	{
+      "type": "url",
+      "id": "banner_url",
+      "label": "banner Url"
+    },
+	{
+      "type": "image_picker",
+      "id": "banner_1",
+      "label": "Banner 1 Image"
+    },
+	{
+      "type": "url",
+      "id": "banner_1_url",
+      "label": "banner1 Url"
+    },
+	{
+      "type": "image_picker",
+      "id": "banner_2",
+      "label": "Banner 2 Image"
+    },
+	{
+      "type": "url",
+      "id": "banner_2_url",
+      "label": "banner2 Url"
+    },
+  	{
+      "type": "text",
+      "id": "title_txt",
+      "label": "title",
+      "default": "top features theme at just"
+    },	
+  	{
+      "type": "text",
+      "id": "subtitle_txt",
+      "label": "Sub title",
+      "default": "antique"
+    },	
+	{
+      "type": "text",
+      "id": "btn_txt",
+      "label": "button text",
+      "default": "Shop Now"
+    },
+{
+      "type": "url",
+      "id": "btn_url",
+      "label": "Button Url"
+    },
+  {
+      "type": "color",
+      "id": "title_color",
+      "label": "title Color",
+      "default":"#000"
+    },
+  {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "sub title Color",
+      "default":"#000"
+    },
+	{
+          "type": "color",
+          "id": "btn_color",
+          "label": "Button text Color",
+          "default":"#fff"
+          },
+{
+          "type": "color",
+          "id": "btn_bg_color",
+          "label": "Button Background Color",
+          "default":"#000000"
+          },
+   {
+          "type": "color",
+          "id": "btn_hover_color",
+          "label": "Button Hover text Color",
+          "default":"#fff"
+          },
+ {
+          "type": "color",
+          "id": "btn_hover_bg_color",
+          "label": "Button hover Background Color",
+          "default":"#000000"
+          },
+	{
+      "type": "image_picker",
+      "id": "banner_3",
+      "label": "Banner 3 Image"
+    },
+	{
+      "type": "url",
+      "id": "banner_3_url",
+      "label": "banner3 Url"
+    }
+
+	
+	],
+ "presets": [
+    {
+     "name": "CMS banner3",
+      "category": "TemplateTrip"
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

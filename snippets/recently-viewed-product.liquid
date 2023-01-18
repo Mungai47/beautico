@@ -1,0 +1,36 @@
+{{ '//ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js' | script_tag }}
+{{ 'jQuery.products.min.js' | asset_url | script_tag }}
+{%- assign grid_image_width = '600x600' -%}
+<div id="recently-viewed-products-wrap" class="collection clearfix" style="display:none;">
+  <h2 class="tt-title">Recently Viewed Products</h2>
+  <div class="row">
+    <div id="recently-viewed-products" class="collection clearfix" >
+    </div>
+  </div>
+</div>
+{% raw %}
+<div class="recentveiw">
+  <script id="recently-viewed-product-template"  type="text/x-jquery-tmpl">
+<div id="product-${handle}" class="product item-row col-sm-3 col-xs-12">
+<div class="product-wrapper">
+  <div class="thumbs product-thumb">
+    <a href="${url}">
+      <img src="${Shopify.Products.resizeImage(featured_image, "600x600")}" />
+    </a>
+    </div>
+  <div class="product-description">      
+      <span class="h4 grid-view-item__title">
+      <a class="grid-view-item__link grid-link__title" href="${url}">${title}</a>
+      <span class="shopify-product-reviews-badge" data-id="${id}"></span>
+    </span>
+      <span class="price">{{if price_varies}}<em>from </em>{{/if}}{{html Shopify.formatMoney(price, window.money_format)}}</span>
+    </div>
+    </div>
+    </div>
+  </script>
+</div>
+{% endraw %}
+<script>
+  Shopify.Products.showRecentlyViewed( { howManyToShow:4 } );
+</script>
+

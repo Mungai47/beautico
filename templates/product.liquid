@@ -1,0 +1,21 @@
+<!-- /templates/product.liquid -->
+{% comment %}
+  The contents of the product.liquid template can be found in /sections/product-template.liquid
+{% endcomment %}
+{% if settings.product_layout == 'design_1' %}
+{% section 'product-template-1' %}
+{% elsif settings.product_layout == 'design_2' %}
+{% section 'product-template-2' %}
+{% elsif settings.product_layout == 'design_5' %}
+{% section 'product-template-5' %}
+{% endif %}
+<script>
+  // Override default values of shop.strings for each template.
+  // Alternate product templates can change values of
+  // add to cart button, sold out, and unavailable states here.
+  theme.productStrings = {
+    addToCart: {{ 'products.product.add_to_cart' | t | json }},
+    soldOut: {{ 'products.product.sold_out' | t | json }},
+    unavailable: {{ 'products.product.unavailable' | t | json }}
+  }
+</script>

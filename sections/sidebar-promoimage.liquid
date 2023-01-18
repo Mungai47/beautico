@@ -1,0 +1,44 @@
+{% if section.blocks.size > 0 %}  
+<div class="widget widget_promo_img" data-section-id="{{ section.id }}" >
+  <div id="promo-carousel">
+    {% for block in section.blocks %}
+    {% if block.settings.promo_img != blank %}
+      <a href="{{ block.settings.promo_link }}" title="{{ block.settings.promo_title }}"> 
+        <img src="{{ block.settings.promo_img | img_url : '500x500' }}" alt="{{ block.settings.promo_title }}" title="{{ block.settings.promo_title }}" /> 
+      </a>
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+{% schema %}
+{
+"name": "Sidebar Promo Images",
+"max_blocks": 3,
+"settings": [],
+"blocks": [
+{
+  "type": "content",
+  "name": "Promo  banner",
+  "settings": [	
+      {
+        "type": "image_picker",
+        "id": "promo_img",
+        "label": "Image",
+        "info": "Size: 328x500"
+      },
+      {
+        "type": "url",
+        "id": "promo_link",
+        "label": "URL"
+      },
+        {
+        "type": "text",
+        "id": "promo_title",
+        "label": "Heading"
+      }
+	]
+}
+]	
+}
+{% endschema %}

@@ -1,0 +1,214 @@
+<div class="ttcmsbanner2 bottom-to-top hb-animate-element ">
+  <div class="container">
+    <div class="ttcmsbanner">
+      <div class="ttbanner ttbannerrow1 col-sm-8 col-xs-8">
+        <div class="ttbanner1 col-sm-6 col-xs-6">
+          <div class="ttbanner-img"> 
+            <a href="{{ section.settings.banner_1_url }}">{{ section.settings.banner_1 | img_url: 'master' | img_tag: 'banner_1' }}
+              <div class="ttbanner-content">
+                <span class="ttbanner-title" style="color:{{section.settings.title_color }}">{{ section.settings.title_txt }}</span> 
+                <span class="ttbanner-subtitle" style="color:{{section.settings.subtitle_color }}">{{ section.settings.subtitle_txt }}</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="ttbanner ttbannerrow2 col-sm-8 col-xs-8">
+        <div class="ttbanner2 col-sm-6 col-xs-6">
+          <div class="ttbanner-img">
+            <a href="{{ section.settings.banner_2_url }}">{{ section.settings.banner_2 | img_url: 'master' | img_tag: 'banner_2' }}</a>
+          </div>
+        </div>
+        <div class="ttbanner3 col-sm-6 col-xs-6">
+          <div class="ttbanner-img">
+            <a href="{{ section.settings.banner_3_url }}">{{ section.settings.banner_3 | img_url: 'master' | img_tag: 'banner_3' }}
+              <div class="ttbanner-content">
+                <span class="ttbanner-title" style="color:{{section.settings.title3_color }}">{{ section.settings.title3_txt }}</span> 
+                <span class="ttbanner-subtitle" style="color:{{section.settings.subtitle3_color }}">{{ section.settings.subtitle3_txt }}</span>
+              </div>
+            </a>
+
+          </div>
+        </div>
+        <div class="ttbannerdesc ttbannerrow3 col-sm-12 col-xs-12">
+          <div class="ttbanner-content">
+            <span class="ttbanner-title" style="color:{{section.settings.banner_title_color }}">{{ section.settings.banner_title_txt }}</span> 
+            <span class="ttbanner-subtitle" style="color:{{section.settings.banner_subtitle_color }}">{{ section.settings.banner_subtitle_txt }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="ttbanner ttbannercol1 col-sm-4 col-xs-4">
+        <div class="ttbanner4">
+          <div class="ttbanner-img">
+            <a href="{{ section.settings.banner_4_url }}">{{ section.settings.banner_4 | img_url: 'master' | img_tag: 'banner_4' }}
+              <div class="ttbanner-content">
+                <span class="ttbanner-title" style="color:{{section.settings.title4_color }}">{{ section.settings.title4_txt }}</span> 
+                <span class="ttbanner-subtitle" style="color:{{section.settings.subtitle4_color }}">{{ section.settings.subtitle4_txt }}</span>
+              </div>
+            </a>          
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "CMS banner2",
+	"class": "index-section cms-banner2",
+    "settings": [
+	{
+      "type": "image_picker",
+      "id": "banner_1",
+      "label": "Banner 1 Image"
+    },
+	{
+      "type": "url",
+      "id": "banner_1_url",
+      "label": "banner1 Url"
+    },
+{
+      "type": "text",
+      "id": "title_txt",
+      "label": "title Text",
+      "default": "diamonds"
+    },
+{
+      "type": "text",
+      "id": "subtitle_txt",
+      "label": "Sub title",
+      "default":"Exhibition shop"
+    },
+	{
+      "type": "color",
+      "id": "title_color",
+      "label": "title Color",
+      "default":"#000"
+    },
+{
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Sub Title Color",
+      "default":"#000"
+    },
+{
+      "type": "image_picker",
+      "id": "banner_2",
+      "label": "Banner 2 Image"
+    },
+{
+      "type": "url",
+      "id": "banner_2_url",
+      "label": "banner2 Url"
+    },
+	{
+      "type": "image_picker",
+      "id": "banner_3",
+      "label": "Banner 3 Image"
+    },
+	{
+      "type": "url",
+      "id": "banner_3_url",
+      "label": "banner3 Url"
+    },
+	{
+      "type": "text",
+      "id": "title3_txt",
+      "label": "title Text",
+      "default": "skull"
+    },
+{
+      "type": "text",
+      "id": "subtitle3_txt",
+      "label": "Sub title",
+      "default":"Exhibition shop"
+    },
+	{
+      "type": "color",
+      "id": "title3_color",
+      "label": "title Color",
+      "default":"#222"
+    },
+{
+      "type": "color",
+      "id": "subtitle3_color",
+      "label": "Sub Title Color",
+      "default":"#000"
+    },
+    	{
+      "type": "text",
+      "id": "banner_title_txt",
+      "label": "Banner desc title",
+      "default": "skull"
+    },
+{
+      "type": "textarea",
+      "id": "banner_subtitle_txt",
+      "label": "Banner desc",
+      "default":"Exhibition shop"
+    },
+	{
+      "type": "color",
+      "id": "banner_title_color",
+      "label": "Banner title Color",
+      "default":"#222"
+    },
+{
+      "type": "color",
+      "id": "banner_subtitle_color",
+      "label": "Banner Description Color",
+      "default":"#000"
+    },
+   
+	{
+      "type": "image_picker",
+      "id": "banner_4",
+      "label": "Banner 4 Image"
+    },
+	{
+      "type": "url",
+      "id": "banner_4_url",
+      "label": "banner4 Url"
+    },
+	
+    	{
+      "type": "text",
+      "id": "title4_txt",
+      "label": "title Text",
+      "default": "jewel"
+    },
+{
+      "type": "text",
+      "id": "subtitle4_txt",
+      "label": "Sub title",
+      "default":"Bracelet"
+    },
+	{
+      "type": "color",
+      "id": "title4_color",
+      "label": "title Color",
+      "default":"#222"
+    },
+{
+      "type": "color",
+      "id": "subtitle4_color",
+      "label": "Sub Title Color",
+      "default":"#000"
+    }
+
+	],
+ "presets": [
+    {
+     "name": "CMS banner2",
+      "category": "TemplateTrip"
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

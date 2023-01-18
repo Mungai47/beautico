@@ -1,0 +1,257 @@
+<div class="ttcmsservices bottom-to-top hb-animate-element ">
+  <div class="services">
+    <div class="container">
+      {% if section.settings.title != blank  %}
+      <div class="section-header section-header--small">
+        {% if section.settings.title != blank %}
+        <h2 class="tt-title" style="color:{{section.settings.title_color }}">{{ section.settings.title }}</h2>  
+        {% endif %}
+      </div>
+      {% endif %}
+      <div class="ttservices-inner {{ section.settings.service_postion }}">
+        <div class="ttservice-left col-sm-6 col-xs-6">
+          <div class="ttoffers ttservices col-sm-12">
+            <div class="ttcontent_inner">
+              <div class="service">
+                <div class="service-icon">{{ section.settings.image_1 | img_url: '70x60' | img_tag: 'image_1'}}</div>
+                <div class="service-content">
+                  <div class="service-title">{{section.settings.title_1}}</div>
+                  <div class="service-desc">{{section.settings.desc_1}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ttreturn ttservices col-sm-12">
+            <div class="ttcontent_inner">
+              <div class="service">
+                <div class="service-icon">{{ section.settings.image_2 | img_url: '70x60' | img_tag: 'image_1'}}</div>
+                <div class="service-content">
+                  <div class="service-title">{{section.settings.title_2}}</div>
+                  <div class="service-desc">{{section.settings.desc_2}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tteasyuse ttservices col-sm-12">
+            <div class="ttcontent_inner">
+              <div class="service">
+                <div class="service-icon">{{ section.settings.image_3 | img_url: '70x60' | img_tag: 'image_1'}}</div>
+                <div class="service-content">
+                  <div class="service-title">{{section.settings.title_3}}</div>
+                  <div class="service-desc">{{section.settings.desc_3}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ttexchange ttservices col-sm-12">
+            <div class="ttcontent_inner">
+              <div class="service">
+                <div class="service-icon">{{ section.settings.image_4 | img_url: '70x60' | img_tag: 'image_1'}}</div>
+                <div class="service-content">
+                  <div class="service-title">{{section.settings.title_4}}</div>
+                  <div class="service-desc">{{section.settings.desc_4}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ttservice-middle ttservicebanner1 col-sm-6 col-xs-6">
+          <div class="ttservices-img"><a href="{{ section.settings.banner_1_url }}">{{ section.settings.banner_1 | img_url: 'master' | img_tag: 'banner_1' }}</a></div>
+        </div>
+        <div class="ttservice-middle ttservicebanner2 col-sm-12 col-xs-12">
+          <div class="ttservice-image">
+            <div class="ttservices-img"> <a href="{{ section.settings.banner_2_url }}">{{ section.settings.banner_2 | img_url: 'master' | img_tag: 'banner_2' }}</a></div>
+            <div class="ttservice-discount">
+              <div class="ttdiscount-perc ttdiscount">{{ section.settings.discount_perc }}</div>
+              <div class="ttdiscount-off ttdiscount">{{ section.settings.discount_off }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>                                                                                                          
+  </div>
+</div>
+<style>
+  .services .ttservices .service-content .service-title {
+    color: {{ section.settings.service_title_color }};
+  }
+  .services .ttservices:hover .service-content .service-title {
+    color: {{ section.settings.service_title_hover_color }};
+  }
+  .services .ttservices .service-content .service-desc {
+    color: {{ section.settings.sub_title_color }};
+  }
+  .ttcmsservices .services .ttservice-middle .ttservice-discount .ttdiscount{
+    color: {{ section.settings.discount_perc_color}};
+  }
+  .services .ttservice-left{
+    background: {{ section.settings.bg_color }};
+  }
+</style>
+{% schema %}
+{
+  "name": "CMS services",
+  "class": "index-section cms-services",
+  "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading"
+      },
+      {
+        "type": "color",
+        "id": "title_color",
+        "label": "Title Color",
+        "default":"#000"
+      },  
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "service background color",
+        "default":"#fff"
+      },
+      {
+        "type": "select",
+        "id": "service_postion",
+        "label": "Service Postion",
+        "options": [
+          {
+            "value": "left_service",
+            "label": "left Service"
+          },
+          {
+            "value": "right_service",
+            "label": "Right Service"
+          }
+        ],
+        "default": "left_service"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_1",
+        "label": "Service Image 1"
+      },
+      {
+        "type": "text",
+        "id": "title_1",
+        "label": "Service Title 1"
+      },
+      {
+        "type": "textarea",
+        "id": "desc_1",
+        "label": "Service SubTitle 1"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_2",
+        "label": "Service Image 2"
+      },
+      {
+        "type": "text",
+        "id": "title_2",
+        "label": "Service Title 2"
+      },
+      {
+        "type": "textarea",
+        "id": "desc_2",
+        "label": "Service SubTitle 2"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_3",
+        "label": "Service Image 3"
+      },
+      {
+        "type": "text",
+        "id": "title_3",
+        "label": "Service Title 3"
+      },
+      {
+        "type": "textarea",
+        "id": "desc_3",
+        "label": "Service SubTitle 3"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_4",
+        "label": "Service Image 4"
+      },
+      {
+        "type": "text",
+        "id": "title_4",
+        "label": "Service Title 4"
+      },
+      {
+        "type": "textarea",
+        "id": "desc_4",
+        "label": "Service SubTitle 4"
+      },
+      {
+        "type": "color",
+        "id": "service_title_color",
+        "label": "Service title",
+        "default":"#000"
+      },
+      {
+        "type": "color",
+        "id": "service_title_hover_color",
+        "label": "Service title hover",
+        "default":"#000"
+      },
+      {
+        "type": "color",
+        "id": "sub_title_color",
+        "label": "Service Sub Heading",
+        "default":"#000"
+      },
+      {	
+        "type": "image_picker",
+        "id": "banner_1",
+        "label": "Banner 1 Image"
+      },
+      {
+        "type": "url",
+        "id": "banner_1_url",
+        "label": "banner1 Url"
+      },
+      {
+        "type": "image_picker",
+        "id": "banner_2",
+        "label": "Banner 2 Image"
+      },      
+      {
+        "type": "url",
+        "id": "banner_2_url",
+        "label": "banner2 Url"
+      },
+	  {
+        "type": "text",
+        "id": "discount_perc",
+        "label": "discount text 1"
+      },
+	  {
+        "type": "text",
+        "id": "discount_off",
+        "label": "discount text 2"
+      },
+      {
+        "type": "color",
+        "id": "discount_perc_color",
+        "label": "discount color",
+        "default":"#000"
+      }
+  ],
+	 "presets": [
+    {
+     "name": "CMS services",
+      "category": "TemplateTrip"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

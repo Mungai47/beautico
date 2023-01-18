@@ -1,0 +1,192 @@
+{% comment %}
+
+  This is your /cart template. If you are using the Ajaxify Cart plugin,
+  your form (with action="/cart") layout will be used in the drawer/modal.
+
+  For info on test orders:
+    - General http://docs.shopify.com/manual/your-store/orders/test-orders
+    - Shopify Payments - http://docs.shopify.com/manual/more/shopify-payments/testing-shopify-payments
+
+{% endcomment %}
+
+<div class="container">
+{% if cart.item_count > 0 %}
+<form action="/cart" method="post" novalidate class="cart-wrapper ">
+  <div class="table-responsive">
+ <table class="shop_table cart_table ">
+    <thead>
+      <tr>
+        <th class="product-remove"></th>
+        <th class="product-thumbnail"></th>
+        <th class="product-name"><span class="nobr">Product Name</span></th>
+        <th class="product-price"> <span class="nobr">Unit Price</span></th>
+        <th class="product-quantity"> <span class="nobr">Quantity</span> </th>
+        <th class="product-total">Total</th>
+      </tr>
+    </thead>
+    <tbody class="cart-box">
+    {% comment %}
+      Loop through products in the cart
+    {% endcomment %}
+    {% for item in cart.items %}
+       <tr>
+      <td><p class="cart__remove"><a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" data-line="{{ forloop.index }}"><i class="mdi mdi-close"></i></a></p></td>
+      <td><div class="product_title" data-id="{{ item.key }}">
+          <div class="grid-item medium--two-fifths large--one-fifth text-center product_img">
+              {% comment %}
+                More image size options at:
+                  - http://docs.shopify.com/themes/filters/product-img-url
+              {% endcomment %}
+              <img src="{{ item | img_url: 'medium' }}" alt="{{ item.title | escape }}">
+
+              
+          </div>
+        </div>
+          </td>
+        <td>
+            <p class="cart__product">
+              <a href="{{ item.url }}">
+                {{ item.product.title }}
+              </a>
+              {% unless item.variant.title contains 'Default' %}
+              <br><small>{{ item.variant.title }}</small>
+              {% endunless %}
+
+              {% comment %}
+                Line item properties
+              {% endcomment %}
+              </p>
+		</td>
+         
+              {% assign property_size = item.properties | size %}
+              {% if property_size > 0 %}
+                {% for p in item.properties %}
+                {% assign first_character_in_key = p.first | truncate: 1, '' %}
+                {% unless p.last == blank or first_character_in_key == '_' %}
+                   <td> <br>
+                    <small>
+                    {{ p.first }}:
+                    {% if p.last contains '/uploads/' %}
+                      <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                    {% else %}
+                      {{ p.last }}
+                    {% endif %}
+                    </small>
+                     </td>
+                  {% endunless %}
+                {% endfor %}
+              {% endif %}
+ <td>
+                <span class="cart__mini-labels">{{ 'cart.label.price' | t }}</span>
+                <span>{{ item.price | money }}</span>
+              </td>
+    <td>
+              <div class="text-center">
+                <label for="updates_{{ item.id }}" class="cart__mini-labels">{{ 'cart.label.quantity' | t }}</label>
+                {% comment %}
+                  Added data-line for the ajax cart implementation only.
+                {% endcomment %}
+                <div class="qty-section quantity-box">
+              <div class="qty-box-set">  
+            
+                <input type="number" name="updates[]" class="quantity" data-id="{{ item.key }}" id="updates_{{ item.key }}" value="{{ item.quantity }}" min="1" data-line="{{ forloop.index }}">              
+              <div class="qnt_wrap">
+                <div class="inc button qtyplus"><i class="mdi mdi-chevron-up"></i></div>
+                <div class="dec button qtyminus"><i class="mdi mdi-chevron-down"></i></div>
+              </div>
+               </div>          
+              <div class="actions hidden-md hidden-xs hidden-sm">
+                <button type="button" class="add-to-cart-btn btn">
+                  {{ 'products.product.add_to_cart' | t }}
+                </button>
+              </div>
+            </div>  
+                
+              </div>
+        </td>
+         <td>
+              <div class="text-center">
+                <span class="cart__mini-labels">{{ 'cart.label.total' | t }}</span>
+                <span>
+                  {% if item.original_line_price != item.line_price %}
+                  <small class="cart-item__original-price"><s>{{ item.original_line_price | money }}</s></small>
+                  {% endif %}
+                  {{ item.line_price | money }}
+                </span>
+              </div>
+        </td>
+                {% for discount in item.discounts %}
+                <td>
+              <div class="text-center">
+                <small class="cart-item__discount">{{ discount.title }}</small>
+                  </div>
+                    </td>
+                {% endfor %}
+    {% endfor %} 
+         </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="6">
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+  </div>
+  <div class="cart__row text-center large--text-right">
+      <h2 class="h6">
+        {{ 'cart.general.subtotal' | t }}
+        <span class="cart__subtotal">{{ cart.total_price | money }}</span>
+        {% if cart.total_discounts > 0 %}
+          {% assign savings = cart.total_discounts | money %}
+          <br><small class="cart__subtotal__savings">{{ 'cart.general.savings_html' | t: price: savings }}</small>
+        {% endif %}
+      </h2>
+    </div>
+
+    <div class="cart__row">
+      <div class="grid">
+
+        {% comment %}
+          Optional, add a textarea for special notes
+            - Your theme settings can turn this on or off. Default is on.
+            - Make sure you have name="note" for the message to be submitted properly
+        {% endcomment %}
+        {% if settings.cart_notes_enable %}
+          <div class="grid-item large--five-twelfths text-center large--text-left">
+            <label for="cartSpecialInstructions">{{ 'cart.general.note' | t }}</label>
+            <textarea name="note" class="input-full cart__instructions" id="cartSpecialInstructions">{{ cart.note }}</textarea>
+          </div>
+        {% endif %}
+
+        <div class="grid-item text-center large--text-right {% if settings.cart_notes_enable %}large--seven-twelfths{% endif %}">
+          <p class="cart__subtotal__note"><em>{{ 'cart.general.taxes_extra' | t }}</em></p>
+          <button type="submit" id="update" name="update" class="btn--secondary update-cart">{{ 'cart.general.update' | t }}</button>
+          <button type="submit" id="checkout" name="checkout" class="btn">{{ 'cart.general.checkout' | t }}</button>
+
+          {% if additional_checkout_buttons and settings.cart_type != 'drawer' %}
+            <div class="cart__additional_checkout_buttons">{{ content_for_additional_checkout_buttons }}</div>
+          {% endif %}
+
+        </div>
+
+      </div>
+    </div>
+ </form>
+  
+
+{% else %}
+  {% comment %}
+    The cart is empty
+  {% endcomment %}
+  <div id="cartEmpty">
+    <div class="container">
+    <h1 class="cart__title tt-innerpagetitle">{{ 'cart.general.title' | t }}</h1>
+    <div class="cart--cookie-message">
+      <p>{{ 'cart.general.cookies_required' | t }}</p>
+    </div>
+    <p class="cart--continue-message">{{ 'cart.general.empty' | t }} {{ 'cart.general.continue_browsing_html' | t }}</p>
+  </div>
+  </div>
+{% endif %}
+</div>

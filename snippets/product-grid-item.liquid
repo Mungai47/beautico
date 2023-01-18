@@ -1,0 +1,136 @@
+<!-- snippets/product-grid-item.liquid -->
+{% comment %}
+
+This snippet is used to showcase each product during the loop,
+'for product in collection.products' in collection.liquid.
+
+A liquid variable (grid_item_width) is set just before the this
+snippet is included to change the size of the container.
+Once the variable is set on a page, all future instances of this
+snippet will use that width. Overwrite the variable to adjust this.
+
+Example
+- assign grid_item_width = 'large--one-quarter medium--one-half'
+
+{% endcomment %}
+{% comment %}
+Set the default grid_item_width if no variable is set
+{% endcomment %}
+{% unless grid_item_width %}
+{% assign grid_item_width = 'large--one-third medium--one-half' %}
+{% endunless %}
+{% unless grid_image_width %}
+{%- assign grid_image_width = '600x600' -%}
+{% endunless %}
+{% if settings.product_image_width_height != nil %}
+{% else %}
+{%- assign grid_image_width = '270x270' -%}
+{% endif %}
+{% if featured.title == '' %}
+{% comment %}add default state for product block in storefront editor{% endcomment %}
+{% capture product_title %}{{ 'home_page.onboarding.product_title' | t }}{% endcapture %}
+{% else %}
+{% capture product_title %}{{ featured.title | escape }}{% endcapture %}
+{% endif %}
+{% comment %}
+Check if the product is on sale and set a variable to be used below.
+{% endcomment %}
+{% assign on_sale = false %}
+{% if featured.compare_at_price > featured.price %}
+{% assign on_sale = true %}
+{% endif %}
+{% comment %}
+Check if the product is sold out and set a variable to be used below.
+{% endcomment %}
+{% assign sold_out = true %}
+{% if featured.available  %}
+{% assign sold_out = false %}
+{% endif %}
+{% comment %}
+Set a class for sold-out and on-sale items
+{% endcomment %}
+<div data-id="product-{{ product.id }}" class="grid-view-item padding_0 {{ settings.product_hover_btn }} product-layouts item-row {% if sold_out %} sold-out{% endif %}{% if on_sale %} on-sale{% endif %}{% if forloop.last %} last{% endif %}">
+  <div class="product-wrapper">
+    <div class="thumbs product-thumb">
+      <div class="col-xs-12 padding_0 {{ settings.product_img_hover }}">
+        <a href="{{ featured.url | within: collection }}" class="product-t">
+          {% if featured.title != '' %}
+          {% if product.images.last %} 
+          <img class="image_thumb_swap" src="{{ product.images.last | product_img_url: settings.product_image_width_height }}" alt="{{ product.images.last.alt | escape }}" />
+          {% endif %}        
+          <img src="{{ product.featured_image.src | img_url: settings.product_image_width_height }}" alt="{{ product.featured_image.alt | escape }}" class="featured-image image_thumb">
+          {% if product.compare_at_price > product.price %}
+          <span class="product-price__sale-label">{{ 'products.product.on_sale' | t }}</span>
+          {% endif %}
+          {% if product.available %} 
+          {% else %}
+          <div class="sold-out-tag text-center">
+            <span class="tag">{{ 'products.product.sold_out' | t }}</span>
+          </div>
+          {% endif %}
+          {% assign c_f = product.metafields.c_f %}
+          {% assign key = 'custom_label' %}
+          {% if c_f.custom_label != nil %}
+          <span class="custom_label">{{ c_f.custom_label }}</span>
+          {% endif %}
+
+          {% else %}
+          {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+          {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+        </a>
+
+        {% if settings.enable_countdown %}        
+        {% assign c_f = product.metafields.c_f %}
+        {% assign key = 'countdown' %}
+        {% if c_f.countdown != nil %}
+        <div class="flip-countdown simple-countdown"><div class="countdown-container flip-countdown" data-countdown="{{ c_f.countdown }}"></div></div>
+        {% endif %}
+        {% endif %} 
+
+        <div class="btn_wrapper">
+          {% if settings.enable_add_cart %}
+          {% if product.available %}    
+          <div class="pro_btn add_tocart">
+            <form  action="/cart/add" method="post" class="variants clearfix cart-form-{{ product.id }}">                                    
+              <input type="hidden" name="id" value="{{ product.variants[0].id }}" />  
+              <a class="add-cart-btn">
+                <i class="mdi mdi-cart-outline"></i><span class="add_cart">{{ 'products.product.add_to_cart' | t }}</span>
+              </a>
+            </form>   
+          </div>  
+          {% endif %} {% endif %}
+          {% if settings.enable_wishlist %}       
+          {% include 'wishlist-icon' %}         
+          {% endif %} 
+          {% if settings.enable_quick_view %}       
+          {% include 'quickveiw-icon' %}         
+          {% endif %} 
+        </div>        
+      </div>
+    </div>      
+    <div class="product-description">
+      {% if settings.display_color_variant %}     
+      {% include 'item-swatch' %}
+      {% endif %}
+      <div class="h4 grid-view-item__title">         
+        <a class="grid-view-item__link grid-link__title" href="{{ product.url | within: collection }}">{{ product.title }}</a>
+      </div>
+      {% if settings.collections_show_rating %}    
+      <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+      {% endif %}
+      {% if settings.show_vendor %}
+      <div class="grid-view-item__vendor">{{ product.vendor }}</div>
+      {% endif %}
+      <div class="grid-view-item__meta">
+        {% capture price %}{{ product.price | money }}{% endcapture %}
+        <div class="grid-link__org_price">
+          {% include 'product-price' %}
+        </div> 
+      </div>
+      <div class="product-desc rte">
+        {{ product.description | strip_html | truncatewords: 20 }}         
+      </div>
+    </div>
+  </div>
+</div>

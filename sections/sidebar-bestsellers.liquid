@@ -1,0 +1,86 @@
+ {% if section.settings.show_best_products %}
+    <div class="widget widget_top_rated_products" data-section-id="{{ section.id }}" >
+      {% if section.settings.title != blank %}
+      <h4>{{ section.settings.title }}</h4>  
+      {% endif %}
+      {% if section.settings.pro_img_width_height != blank %}
+      {% assign pro_size =  section.settings.pro_img_width_height %}
+      {% else %}
+		{% assign pro_size= 'small' %}
+      {% endif %}
+      <ul class="no-bullets top-products">
+        {% for product in collections[section.settings.bestseller].products limit: section.settings.limit %}
+        <li class="col-xs-12 padding_0 product-wrapper sidebar-product"> 
+          {% if product.images.size > 0 %}  
+          <div class="image product-thumb col-xs-5 col-sm-5 col-md-4 padding_0">
+            <div class="product-img {{ settings.product_img_hover }}">
+          <a class="thumb product-t" href="{{ product.url | within: collection }}">                                          
+            <img class="featured-image image_thumb" alt="featured product" src="{{ product.featured_image | product_img_url: pro_size }}">          
+            <img class="image_thumb_swap" alt="featured product" src="{{ product.images.last | product_img_url: pro_size }}">          
+            </a>
+             {% if product.compare_at_price > product.price %}
+            <span class="sale on-sale-tag">{{ 'products.product.on_sale' | t }}</span>    
+            {% endif %}
+            </div>
+          </div>
+          {% endif %} 
+          <div class="top-products-detail thumb-description col-xs-7 col-sm-7 col-md-8">
+            <h4><a href="{{ product.url | within: collection }}"> {{ product.title }} </a></h4>
+            {% for tag in product.tags %}
+
+            {% endfor %}
+            <div class="top-product-prices">
+              <span class="price">{{ product.price_min | money }}</span>
+              {% if product.compare_at_price_max > product.price %}
+              <del>{{ product.compare_at_price_max | money }}</del>
+              {% endif %}	
+            </div>
+           
+
+          </div>
+        </li>
+        {% endfor %}
+      </ul> 
+    </div>
+ {% endif %} 
+
+ {% schema %}
+  {
+    "name": "Products",    
+    "settings": [	
+      {
+        "type": "checkbox",
+        "id": "show_best_products",
+        "label": "Enable best sellers",
+		"default":false
+      },
+	 {
+        "type": "text",
+        "id": "title",
+        "label": "Heading"
+      },
+      {
+        "type": "collection",
+        "id": "bestseller",
+        "label": "Collection"
+      },
+	{
+        "type": "text",
+        "id": "pro_img_width_height",
+        "default": "80x104",
+        "label": "Product image width and height (widthxheight)"
+      },
+      {
+        "type": "text",
+        "id": "limit",
+        "label": "Product Limit",
+        "default": "5"
+      }
+	
+]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
